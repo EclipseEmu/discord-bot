@@ -1,0 +1,250 @@
+[v3]
+title = "Version 3"
+description = """
+**When?**
+There's no release date yet.
+
+**What's taking so long?**
+For starters, it's a complete rewrite. \
+There isn't a single line of code reused between v2 and v3. v2's code is... bad, to say the least. \
+It's not easy to build on top of and any attempts at fixing it quickly ended up becoming rewrites. \
+That extends to cores, which is a massive undertaking! I've completely migrated to WebAssembly-based cores, though I've built a really nice core loader system that doesn't lock in core devs to WebAssembly. \
+
+Another big reason that its taken so long is that I'm just a single guy working on it at this point (because I'm very picky with the code and scared everyone else away lmao), not to mention I have to balance university and my own life on top of it.
+
+Please understand that the scope of this update is not small and takes time. That being said, a lot of progress has been made, and betas will start being seeded to our beta testers again soon 👀 (please don't ask for beta access, we aren't looking unless otherwise stated)
+"""
+
+# Systems
+[systems]
+title = "Systems"
+description = """
+**Current Systems**
+- Nintendo Entertainment System (NES)
+- Super Nintendo Entertainment System (SNES)
+- Game Boy (GB)
+- Game Boy Color (GBC)
+- Game Boy Advance (GBA) 
+
+**Supported File Types**
+- NES: `.nes`
+- SNES: `.smc` and `.sfc`
+- GB: `.gb`
+- GBC: `.gbc`
+- GBA: `.gba`
+"""
+
+[future_systems]
+title = "Planned System Support"
+description = """
+Please note, these are just *planned*. No work has been done on implementing them.
+- PlayStation 1
+- Nintendo 64
+- Nintendo DS
+- Sega Genesis
+"""
+
+[nds]
+title = "Nintendo DS"
+description = """
+**DS is Not Supported (yet)**
+Eclipse doesn't have DS support because efforts are currently being put into improving the foundation. We want DS support just as much as anyone, but as it is: Eclipse is flawed at the foundational level. 
+
+**Alternatives**
+Currently the best web-based DS emulator is https://ds.44670.org
+Please note that we are not the devs behind it, so do not expect any support for it here.
+"""
+
+[n64]
+title = "Nintendo 64"
+description = """
+**N64 is Not Supported (yet)**
+There is no known N64 web-based emulator yet. We plan on making our own after we add DS support in v3.1.
+
+**Alternatives**
+If you can sign apps (via AltStore or some signing service) then use Delta.
+"""
+
+[3ds]
+title = "Nintendo 3DS"
+description = """
+There is no 3DS emulator for iOS. 3DS emulation requires Just-in-Time (JIT) compilation, which Apple has locked down support for to just WebKit.\
+There'll likely be one that comes out for jailbroken devices eventually. \
+For Eclipse, we'd need to figure out some way of generating WebAssembly, compiling it, and running on the fly. \
+That can technically already be done, but due to the nature of WebAssembly, it wouldn't work in the way it needs to for proper (and fast) JIT'd emulation.
+"""
+
+[gamecube]
+title = "GameCube"
+description = """
+**Not Supported**
+There is no web-based GameCube emulator for iOS. GameCube emulation requires Just-in-Time (JIT) compilation. For Eclipse, we'd need to figure out some way of generating WebAssembly, compiling it, and running on the fly. That can technically already be done, but due to the nature of WebAssembly, it wouldn't work in the way it needs to for proper (and fast) JIT'd emulation.
+
+**Alternatives**
+If you can sign apps (via AltStore or some signing service) then use DolphiniOS.
+"""
+
+[wii]
+title = "Wii"
+description = """
+**Not Supported**
+There is no web-based Wii emulator for iOS. Wii emulation requires Just-in-Time (JIT) compilation. For Eclipse, we'd need to figure out some way of generating WebAssembly, compiling it, and running on the fly. That can technically already be done, but due to the nature of WebAssembly, it wouldn't work in the way it needs to for proper (and fast) JIT'd emulation.
+
+**Alternatives**
+If you can sign apps (via AltStore or some signing service) then use DolphiniOS.
+"""
+
+# Misc.
+[sound]
+title = "Sound"
+description = """
+To ensure sound functions, make sure sound is turned on in Eclipse's settings and that its volume is set high enough to hear, and that your ringer is on and your volume is turned up.
+
+**Stuttering**
+Some stuttering in the audio is normal, especially if emulation is running just under full speed (see /faq "Game running slow" for more info)
+"""
+
+[offline]
+title = "Offline Support"
+description = """
+- Add Eclipse to your homescreen.
+- Turn off WiFi and Cellular Data.
+- Use the load game option (from files app).
+"""
+
+[library]
+title = "Adding a Game"
+description = """
+Press the + button in the top right, then select any of the options *under* the "Add Game" section. \
+(The "Add Game" text is just text, pressing on it will do nothing. Don't be that person.)
+"""
+
+[cache]
+title = "Clearing Cache"
+description = """
+Eclipse will cache itself to let you play offline (assuming you're loading it via https, not http (even if you're using the Home Screen icon)). Because of this, it's kinda annoying to update on our end. We can't just force an update.
+
+**Clearing on v2.2.3 or Older**
+See: https://eclipseemu.me/clear-cache-guide/
+
+**Clearing on v2.2.4 or Newer**
+Just go to (Eclipse's) Settings -> Clear Cache
+"""
+
+[faq]
+title = "Read FAQ"
+description = "Go read <#414910734921629696> then come back and ask your question if it's not on the FAQ list."
+
+[ask]
+title = "Just ask"
+description = "Just ask the question. You're more likely to get proper help that way. Read: https://dontasktoask.com/"
+
+[zip]
+title = "Unzip"
+description = "Eclipse doesn't support zip files (or any other archive format). On iOS, you can unzip via the Files app. Here's Apple's guide on how to do that: https://support.apple.com/en-us/HT211132"
+
+[saves]
+title = "Saving"
+description = """
+If you're having trouble with saving, you're probably not saving in-game. Eclipse's "Store Saved Game" button in the game menu does exactly what it says: it stores the **saved** game –– it is *not* a save state like you'd find in other emulators. If there's no save game to store, then it can't store anything. The cores we use don't tell us when you save in-game, which is why the process is more confusing than other emulators.
+
+**How to Save**
+You *must* do the following steps in order:
+1. Save in-game, as you would on original hardware.
+2. Either use the "Stored Save Game" button or the "Quit" button in the game menu (which can be accessed by pressing the "MENU" button) before closing Eclipse.
+
+**Compatibility**
+- NES games do not save.
+- SNES games should all save.
+- GB/GBC games should all save.
+- GBA games have some incompatibilities.
+
+**Known incompatibilities**
+- Metroid games (GBA ones)
+- Harvest Moon games (GBA ones)
+- Mega Man Battle Network games (GBA ones)
+- Kirby games (GBA ones)
+"""
+
+[cheats]
+title = "Cheats"
+description = "Cheats are not available for Eclipse. They will be added in the next major release (v3.0.0)."
+
+[radred]
+title = "Pokemon ROM Hacks"
+description = """
+More advanced Pokémon ROM hacks are not compatible with the GBA core Eclipse uses. \
+The GBA core is quite behind on features (e.g. no Real Time Clock support), so emulation itself of GBA games aren't great. \
+This less-than-optimal emulation leads to things like the rock tunnel and double battles bugging out in hacks like Radical Red. \
+If you're just playing a basic reskin, you should have no issues. We're replacing the GBA core in v3 with one that's much more feature-complete.
+"""
+
+[slow]
+title = "Game running slow"
+description = """
+**Things to Try**
+1. Turn off low power mode, if you have it on. (it throttles web performance by ~50%)
+2. Running only one game per session.
+3. Don't have background apps open.
+4. Clearing cache (Settings -> Clear Cache).
+5. Be on the latest iOS/browser version.
+
+**More Info**
+https://discord.com/channels/382652933218631682/414910734921629696/841466132464271360
+"""
+
+[rtc]
+title = "Real Time Clock"
+description = """
+Eclipse doesn’t support Real Time Clock (RTC) features. Support will come in the future.
+"""
+
+[multiplayer]
+title = "Trading/Multiplayer"
+description = """
+There are currently no multiplayer features in Eclipse, including trading in Pokemon. \
+We plan to iterate on a multiplayer system, starting local with multiple controllers, \
+then figuring out something with WebRTC for that same experience (but online), and \
+*then* finally offering support for stuff like trading.
+"""
+
+[controller]
+title = "Controller"
+description = """
+**Support**
+Eclipse uses the [Gamepad API](https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API) for its controller support. On WebKit-based browsers, it can be quite finicky so expect bugs. Controllers work most reliably on iOS 14+.
+
+If you're on iOS, the supported controllers are:
+- Any MFI (Made for iPhone) controller
+- PlayStation 4/5 controller
+- Xbox One/Series controller
+
+**Controller Stopped/Not Connecting**
+If your controller was working before but stopped connecting, try restarting your device. This fixes the problem almost every time.
+
+**Connection Guide**
+https://discord.com/channels/382652933218631682/414910734921629696/751813463923228749
+"""
+
+[export]
+title = "Exporting/Importing Data"
+description = """
+**Individual save for a game in your Library**
+If your game is in the library, all you have to do is:
+- Tap and hold (or right click) on the game in the library screen
+- In the menu that pops up, select "Battery Saves"
+- If you're exporting, select "Download", if you're importing, select "Upload"
+
+**Individual save for a game in *not* your Library**
+- Go to Settings (in Eclipse)
+- Go to Storage
+- Select "Uploaded Games Saves"
+- Select the "Upload a Game" option
+- Upload the ROM of the game
+- If you're exporting, select "Export Save", if you're importing, select "Import Save"
+
+**A full backup**
+- Go to Settings (in Eclipse)
+- Go to Storage
+- If you're exporting, select "Create Backup", if you're importing, select "Load Backup"
+"""

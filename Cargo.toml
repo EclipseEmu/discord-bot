@@ -1,0 +1,19 @@
+[package]
+name = "discord_bot"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.56"
+dotenv = "0.15.0"
+serde = { version = "1.0.136", features = ["derive"] }
+serenity = { version = "0.10.10", default-features = false, features = ["client", "gateway", "rustls_backend", "model", "unstable_discord_api", "collector"] }
+tokio = { version = "1.17.0", features = ["rt-multi-thread", "macros"] }
+toml = "0.5.8"
+
+[[bin]]
+name = "eclipse-bot"
+path = "src/main.rs"
