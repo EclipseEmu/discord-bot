@@ -8,35 +8,32 @@ use serenity::{
 };
 
 use crate::{
-    get_questions, helpers,
-    questions::{QuestionEntry, QuestionsContainer},
+    helpers,
+    questions::{get_questions, QuestionEntry, QuestionsContainer, FAILED_LOAD_RESPONSE},
 };
 
 pub async fn handle(ctx: Context, cmd: ApplicationCommandInteraction) -> Result<(), Error> {
     let Some(id) = helpers::get_param_as_str(&cmd.data, 0) else {
-	    return helpers::error_response(&ctx, cmd, "No question ID was provided, you shouldn't be able to do that...").await;
+	    return helpers::simple_response(&ctx, cmd, "No question ID was provided, you shouldn't be able to do that...").await;
+    };
+
+    let guard = ctx.data.read().await;
+    let Ok(map) = get_questions!(guard) else {
+    	return helpers::simple_response(&ctx, cmd, FAILED_LOAD_RESPONSE).await;
+    };
+
+    let Some(faq_entry) = map.get(id) else {
+    	return helpers::simple_response(&ctx, cmd, "The question you requested doesn't seem to exist. See /faq-list for a list of question IDs.").await;
     };
 
     let show = helpers::get_param_as_bool(&cmd.data, 1).unwrap_or(false);
 
-    let guard = ctx.data.read().await;
-    let Ok(map) = get_questions!(guard) else {
-    	return helpers::error_response(&ctx, cmd, "An error occurred while trying to load the questions, try again later.").await;
-    };
-
-    let faq_entry = map.get(id);
-
     cmd.create_interaction_response(&ctx.http, |resp| {
         resp.interaction_response_data(|msg| {
-            if !show || faq_entry.is_none() {
+            if !show {
                 msg.flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL);
             }
-            msg.create_embed(|embed| match faq_entry {
-                Some(entry) => embed.title(&entry.q).description(&entry.a),
-                _ => embed
-                    .title("Unknown Question")
-                    .description("The question you requested doesn't seem to exist. See /faq-list for a list of question IDs!")
-            })
+            msg.create_embed(|embed| embed.title(&faq_entry.q).description(&faq_entry.a))
         })
     })
     .await

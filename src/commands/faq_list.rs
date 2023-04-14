@@ -7,12 +7,15 @@ use serenity::{
     Error,
 };
 
-use crate::{get_questions, helpers, questions::QuestionsContainer};
+use crate::{
+    helpers,
+    questions::{get_questions, QuestionsContainer, FAILED_LOAD_RESPONSE},
+};
 
 pub async fn handle(ctx: Context, cmd: ApplicationCommandInteraction) -> Result<(), Error> {
     let guard = ctx.data.read().await;
     let Ok(map) = get_questions!(guard) else {
-    	return helpers::error_response(&ctx, cmd, "An error occurred while trying to load the questions, try again later.").await;
+    	return helpers::simple_response(&ctx, cmd, FAILED_LOAD_RESPONSE).await;
     };
     let identifiers = map
         .keys()

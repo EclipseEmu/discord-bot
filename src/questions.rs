@@ -5,6 +5,9 @@ use std::{collections::HashMap, sync::Arc};
 
 pub struct QuestionsContainer;
 
+pub const FAILED_LOAD_RESPONSE: &'static str =
+    "An error occurred while trying to load the questions, try again later.";
+
 #[derive(Debug, Deserialize)]
 pub struct QuestionEntry {
     pub id: String,

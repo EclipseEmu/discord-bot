@@ -1,8 +1,6 @@
 mod bot;
 mod commands;
 mod helpers;
-
-#[macro_use]
 mod questions;
 
 use anyhow::Result;

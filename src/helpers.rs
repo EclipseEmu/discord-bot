@@ -10,7 +10,7 @@ use serenity::{
     Error,
 };
 
-pub async fn error_response<D>(
+pub async fn simple_response<D>(
     ctx: &Context,
     cmd: ApplicationCommandInteraction,
     message: D,

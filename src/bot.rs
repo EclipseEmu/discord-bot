@@ -64,10 +64,10 @@ impl EventHandler for Bot {
     async fn interaction_create(&self, ctx: Context, interaction: Interaction) {
         let response = match interaction {
             Interaction::ApplicationCommand(cmd) => match cmd.data.name.as_str() {
-                "ping" => commands::ping::handle(ctx, cmd).await,
-                "faq-reload" => commands::reload::handle(ctx, cmd).await,
                 "faq" => commands::faq::handle(ctx, cmd).await,
                 "faq-list" => commands::faq_list::handle(ctx, cmd).await,
+                "faq-reload" => commands::faq_reload::handle(ctx, cmd).await,
+                "ping" => commands::ping::handle(ctx, cmd).await,
                 _ => unreachable!(),
             },
             Interaction::Autocomplete(ac) => match ac.data.name.as_str() {
