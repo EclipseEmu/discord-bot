@@ -1,17 +1,20 @@
 mod bot;
 mod commands;
-mod faq_list;
+mod helpers;
 
+#[macro_use]
+mod questions;
+
+use anyhow::Result;
 use dotenv::dotenv;
-use faq_list::load_faq_list;
+use questions::{load_questions, QuestionsContainer};
 use serenity::prelude::*;
-use std::{env, fs::File};
+use std::{collections::HashMap, env, sync::Arc};
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<()> {
     dotenv().ok();
-    let faq_path =
-        env::var("ECLIPSE_FAQ_FILE").expect("Expected ECLIPSE_FAQ_FILE in the environment");
+
     let token =
         env::var("ECLIPSE_BOT_TOKEN").expect("Expected ECLIPSE_BOT_TOKEN in the environment");
 
@@ -26,10 +29,13 @@ async fn main() {
         .await
         .expect("Error creating client");
 
-    let mut faq_file = File::open(faq_path).expect("Expected to be able to open the file");
-    load_faq_list(&client, &mut faq_file).await;
-
-    if let Err(why) = client.start().await {
-        println!("Client error: {:?}", why);
+    let mut faq = HashMap::new();
+    load_questions(&mut faq).await?;
+    {
+        let mut data = client.data.write().await;
+        data.insert::<QuestionsContainer>(Arc::new(Mutex::new(faq)));
     }
+
+    client.start().await?;
+    Ok(())
 }

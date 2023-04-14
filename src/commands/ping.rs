@@ -7,7 +7,7 @@ use serenity::{
     Error,
 };
 
-pub async fn ping(ctx: Context, cmd: ApplicationCommandInteraction) -> Result<(), Error> {
+pub async fn handle(ctx: Context, cmd: ApplicationCommandInteraction) -> Result<(), Error> {
     cmd.create_interaction_response(&ctx.http, |resp| {
         resp.kind(InteractionResponseType::ChannelMessageWithSource)
             .interaction_response_data(|msg| {
