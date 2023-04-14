@@ -1,10 +1,7 @@
 use serenity::{
-    model::prelude::{
-        application_command::{
-            ApplicationCommandInteraction, ApplicationCommandInteractionData,
-            ApplicationCommandInteractionDataOptionValue,
-        },
-        InteractionApplicationCommandCallbackDataFlags, InteractionResponseType,
+    model::application::interaction::{
+        application_command::{ApplicationCommandInteraction, CommandData, CommandDataOptionValue},
+        InteractionResponseType, MessageFlags,
     },
     prelude::Context,
     Error,
@@ -21,26 +18,23 @@ where
     cmd.create_interaction_response(&ctx.http, |resp| {
         resp.kind(InteractionResponseType::ChannelMessageWithSource)
             .interaction_response_data(|msg| {
-                msg.flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL);
+                msg.flags(MessageFlags::EPHEMERAL);
                 msg.content(message)
             })
     })
     .await
 }
 
-pub fn get_param_as_str<'a>(
-    data: &'a ApplicationCommandInteractionData,
-    index: usize,
-) -> Option<&'a str> {
+pub fn get_param_as_str<'a>(data: &'a CommandData, index: usize) -> Option<&'a str> {
     data.options
         .get(index)
         .and_then(|x| x.value.as_ref())
         .and_then(|x| x.as_str())
 }
 
-pub fn get_param_as_bool(data: &ApplicationCommandInteractionData, index: usize) -> Option<bool> {
+pub fn get_param_as_bool(data: &CommandData, index: usize) -> Option<bool> {
     data.options.get(index).map(|usr| match &usr.resolved {
-        Some(ApplicationCommandInteractionDataOptionValue::Boolean(val)) => val.to_owned(),
+        Some(CommandDataOptionValue::Boolean(val)) => val.to_owned(),
         _ => false,
     })
 }

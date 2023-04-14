@@ -1,6 +1,6 @@
 use serenity::{
-    model::interactions::application_command::ApplicationCommandInteraction, prelude::Context,
-    Error,
+    model::application::interaction::application_command::ApplicationCommandInteraction,
+    prelude::Context, Error,
 };
 
 use crate::{

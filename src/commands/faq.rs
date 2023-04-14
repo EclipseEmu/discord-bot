@@ -1,7 +1,7 @@
 use serenity::{
-    model::interactions::{
+    model::application::interaction::{
         application_command::ApplicationCommandInteraction, autocomplete::AutocompleteInteraction,
-        InteractionApplicationCommandCallbackDataFlags,
+        MessageFlags,
     },
     prelude::Context,
     Error,
@@ -31,9 +31,9 @@ pub async fn handle(ctx: Context, cmd: ApplicationCommandInteraction) -> Result<
     cmd.create_interaction_response(&ctx.http, |resp| {
         resp.interaction_response_data(|msg| {
             if !show {
-                msg.flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL);
+                msg.flags(MessageFlags::EPHEMERAL);
             }
-            msg.create_embed(|embed| embed.title(&faq_entry.q).description(&faq_entry.a))
+            msg.embed(|embed| embed.title(&faq_entry.q).description(&faq_entry.a))
         })
     })
     .await

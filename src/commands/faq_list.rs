@@ -1,7 +1,6 @@
 use serenity::{
-    model::interactions::{
-        application_command::ApplicationCommandInteraction,
-        InteractionApplicationCommandCallbackDataFlags, InteractionResponseType,
+    model::application::interaction::{
+        application_command::ApplicationCommandInteraction, InteractionResponseType, MessageFlags,
     },
     prelude::Context,
     Error,
@@ -25,8 +24,8 @@ pub async fn handle(ctx: Context, cmd: ApplicationCommandInteraction) -> Result<
     cmd.create_interaction_response(&ctx.http, |resp| {
         resp.kind(InteractionResponseType::ChannelMessageWithSource)
             .interaction_response_data(|msg| {
-                msg.flags(InteractionApplicationCommandCallbackDataFlags::EPHEMERAL);
-                msg.create_embed(|embed| {
+                msg.flags(MessageFlags::EPHEMERAL);
+                msg.embed(|embed| {
                     embed.title("Question IDs");
                     embed.description(identifiers)
                 })

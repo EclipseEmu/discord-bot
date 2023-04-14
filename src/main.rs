@@ -21,7 +21,7 @@ async fn main() -> Result<()> {
         .parse()
         .expect("ECLIPSE_BOT_APPLICATION_ID is not a valid id");
 
-    let mut client = Client::builder(token)
+    let mut client = Client::builder(token, GatewayIntents::non_privileged())
         .event_handler(bot::Bot)
         .application_id(application_id)
         .await

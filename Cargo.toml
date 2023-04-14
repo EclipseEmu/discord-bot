@@ -10,10 +10,9 @@ publish = false
 anyhow = "1.0.56"
 dotenv = "0.15.0"
 reqwest = "0.11.16"
-serde = { version = "1.0.136", features = ["derive"] }
-serenity = { version = "0.10.10", default-features = false, features = ["client", "gateway", "rustls_backend", "model", "unstable_discord_api", "collector"] }
+serde = { version = "1.0.160", features = ["derive"] }
+serenity = { version = "0.11.5", default-features = false, features = ["client", "gateway", "rustls_backend", "model"] }
 tokio = { version = "1.17.0", features = ["rt-multi-thread", "macros"] }
-toml = "0.5.8"
 
 [[bin]]
 name = "eclipse-bot"
